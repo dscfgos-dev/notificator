@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccessRequestRepository extends JpaRepository<AccessRequest, Long>{
     public AccessRequest findByChatId(Long chatId);
+
+    public Long deleteByChatId(Long chatId);
 }

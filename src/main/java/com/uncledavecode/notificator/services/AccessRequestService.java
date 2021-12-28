@@ -2,6 +2,8 @@ package com.uncledavecode.notificator.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.uncledavecode.notificator.model.AccessRequest;
 import com.uncledavecode.notificator.repository.AccessRequestRepository;
 
@@ -34,5 +36,10 @@ public class AccessRequestService {
 
     public List<AccessRequest> getAllAccessRequests(){
         return this.accessRequestRepository.findAll();
+    }
+
+    @Transactional
+    public Long deleteByChatId(Long chatId){
+       return this.accessRequestRepository.deleteByChatId(chatId);
     }
 }

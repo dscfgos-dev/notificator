@@ -24,8 +24,18 @@ public class UserAccountService {
     }
 
     public UserAccount updateUserAccount(UserAccount userAccount) {
+        
         if (userAccount != null) {
-            return this.userAccountRepository.save(userAccount);
+            UserAccount user = getByChatId(userAccount.getChatId());
+            if(user != null){
+                user.setEmail(userAccount.getEmail());
+                user.setName(userAccount.getName());
+                user.setLastname(userAccount.getLastname());
+            }else{
+                user =  userAccount;
+            }
+
+            return this.userAccountRepository.save(user);
         } else {
             throw new IllegalArgumentException("userAccount cannot be null");
         }
