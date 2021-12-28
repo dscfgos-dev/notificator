@@ -1,0 +1,29 @@
+entity UserAccount {
+  id Long required unique
+  email String required unique
+  name String
+  lastname String
+  chatId Long
+  active Boolean
+}
+
+entity Profile {
+  code String required unique
+  name String required unique
+}
+
+entity AccessRequest {
+  id Long required unique
+  chatId Long
+  email String required unique
+  name String
+  lastname String
+  requestDate LocalDate
+}
+
+/**
+ * Many to one relationship.
+ */
+relationship ManyToOne {
+  UserAccount to Profile
+}
