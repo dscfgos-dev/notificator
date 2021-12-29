@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long>{
     public UserAccount findByChatId(Long chatId);
+
+    public Long deleteByChatId(Long chatId);
 }

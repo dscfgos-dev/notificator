@@ -6,6 +6,7 @@ import com.uncledavecode.notificator.model.UserAccount;
 import com.uncledavecode.notificator.repository.UserAccountRepository;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserAccountService {
@@ -31,6 +32,7 @@ public class UserAccountService {
                 user.setEmail(userAccount.getEmail());
                 user.setName(userAccount.getName());
                 user.setLastname(userAccount.getLastname());
+                user.setActive(userAccount.getActive());
             }else{
                 user =  userAccount;
             }
@@ -43,5 +45,10 @@ public class UserAccountService {
 
     public List<UserAccount> getAllUserAccounts() {
         return this.userAccountRepository.findAll();
+    }
+
+    @Transactional
+    public Long deleteByChatId(Long chatId){
+       return this.userAccountRepository.deleteByChatId(chatId);
     }
 }

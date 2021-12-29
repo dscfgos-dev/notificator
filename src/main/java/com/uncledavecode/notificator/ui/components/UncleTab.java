@@ -4,13 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
-import com.vaadin.flow.component.tabs.Tabs.SelectedChangeEvent;
-import com.vaadin.flow.shared.Registration;
 
 public class UncleTab extends VerticalLayout {
 
@@ -51,21 +48,5 @@ public class UncleTab extends VerticalLayout {
         }
 
         return result;
-    }
-
-    public Component getSelectedPage() {
-        return this.selectedPage;
-    }
-
-    public Registration addSelectedChangeListener(ComponentEventListener<SelectedChangeEvent> listener) {
-        return this.tabs.addSelectedChangeListener(listener);
-    }
-
-    public int getSelectedIndex() {
-        return this.tabs.getSelectedIndex();
-    }
-
-    public void setSelectedIndex(int selectedIndex) {
-        this.tabs.setSelectedIndex(selectedIndex);
     }
 }

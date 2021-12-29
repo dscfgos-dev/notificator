@@ -12,7 +12,7 @@ import com.uncledavecode.notificator.utils.BotUtils;
 import com.vdurmont.emoji.EmojiParser;
 
 import org.apache.commons.validator.routines.EmailValidator;
-import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -23,16 +23,18 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+@Component
 public class NotificatorBot extends TelegramLongPollingBot {
 
     private final BotConfiguration botConfiguration;
     private final AccessRequestService accessRequestService;
     private final UserController userController;
 
-    public NotificatorBot(ApplicationContext ctx) {
-        this.botConfiguration = ctx.getBean("botConfiguration", BotConfiguration.class);
-        this.accessRequestService = ctx.getBean("accessRequestService", AccessRequestService.class);
-        this.userController = ctx.getBean("userController", UserController.class);
+    public NotificatorBot(BotConfiguration botConfiguration, AccessRequestService accessRequestService,
+            UserController userController) {
+        this.botConfiguration = botConfiguration;
+        this.accessRequestService = accessRequestService;
+        this.userController = userController;
     }
 
     @Override
@@ -65,7 +67,6 @@ public class NotificatorBot extends TelegramLongPollingBot {
                 this.processCallBack(update);
             }
         }
-
     }
 
     @Override
@@ -120,9 +121,9 @@ public class NotificatorBot extends TelegramLongPollingBot {
                 switch (request.getStep()) {
                     case 1:
                         isValid = EmailValidator.getInstance().isValid(textValue);
-                        if(isValid){
+                        if (isValid) {
                             request.setEmail(textValue);
-                        }else{
+                        } else {
                             BotUtils.sendMessage(this, "Email not valid", request.getChatId());
                         }
                         break;
@@ -134,7 +135,7 @@ public class NotificatorBot extends TelegramLongPollingBot {
                         break;
 
                 }
-                if(isValid){
+                if (isValid) {
                     request.setStep(request.getStep() + 1);
                     request = this.accessRequestService.updateAccessRequest(request);
                 }
@@ -197,7 +198,7 @@ public class NotificatorBot extends TelegramLongPollingBot {
         sendMessage.setChatId(request.getChatId().toString());
 
         InlineKeyboardButton btnYes = new InlineKeyboardButton();
-        btnYes.setText(EmojiParser.parseToUnicode(":heavy_check_mark:")+ " Yes");
+        btnYes.setText(EmojiParser.parseToUnicode(":heavy_check_mark:") + " Yes");
         btnYes.setCallbackData("yes");
 
         InlineKeyboardButton btnNo = new InlineKeyboardButton();

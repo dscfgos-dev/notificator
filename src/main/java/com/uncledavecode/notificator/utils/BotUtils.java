@@ -24,4 +24,12 @@ public class BotUtils {
             e.printStackTrace();
         }
     }
+
+    public static void sendMessage(DefaultAbsSender sender,String message, Long[] chatIds){
+        if(chatIds != null && chatIds.length > 0 && message != null){
+            for (Long chatId : chatIds) {
+                sendMessage(sender, message, chatId);
+            }
+        } 
+    }
 }
