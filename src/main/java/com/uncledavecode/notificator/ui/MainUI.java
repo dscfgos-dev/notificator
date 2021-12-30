@@ -10,9 +10,12 @@ import com.uncledavecode.notificator.model.AccessRequest;
 import com.uncledavecode.notificator.model.UserAccount;
 import com.uncledavecode.notificator.services.AccessRequestService;
 import com.uncledavecode.notificator.services.UserAccountService;
+import com.uncledavecode.notificator.ui.components.AlertEvent;
+import com.uncledavecode.notificator.ui.components.UncleMessage;
 import com.uncledavecode.notificator.ui.components.UncleTab;
 import com.uncledavecode.notificator.utils.BotUtils;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -134,9 +137,19 @@ public class MainUI extends VerticalLayout {
 
     private void sendMessage_handler(ClickEvent<Button> event) {
         if (dgdUserAccount.getSelectedItems() != null && !dgdUserAccount.getSelectedItems().isEmpty()) {
-            Long[] chatIds = dgdUserAccount.getSelectedItems().stream().filter(user -> user.getActive()==true).map(p -> p.getChatId()).toArray(Long[]::new);
+            UncleMessage message = new UncleMessage();
+            message.initializeComponent();
+            message.addAcceptListener(new ComponentEventListener<AlertEvent>() {
+                @Override
+                public void onComponentEvent(AlertEvent event) {
+                    Long[] chatIds = dgdUserAccount.getSelectedItems().stream().filter(user ->
+                    user.getActive()==true).map(p -> p.getChatId()).toArray(Long[]::new);
 
-            BotUtils.sendMessage(notificatorBot, "Alert message from Vaadin!", chatIds);
+                    BotUtils.sendMessage(notificatorBot, event.getMessage(), chatIds);
+                }
+            });
+
+            message.open();
         }
 
     }

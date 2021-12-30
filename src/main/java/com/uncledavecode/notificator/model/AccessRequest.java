@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,11 +40,6 @@ public class AccessRequest {
     @Column(name = "requestdate")
     private LocalDateTime requestDate;
 
-     /**
-     * 1 - email
-     * 2 - name
-     * 3 - lastname 
-     */
-    @Column(name = "step", nullable = false)
-    private int step ;
+    @Enumerated(EnumType.STRING)
+    private Step step;
 }
