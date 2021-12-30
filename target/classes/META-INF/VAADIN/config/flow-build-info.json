@@ -1,0 +1,9 @@
+{
+  "compatibilityMode": false,
+  "productionMode": false,
+  "npmFolder": "D:\\Development\\springboot\\uncledavecode\\notificator",
+  "generatedFolder": "D:\\Development\\springboot\\uncledavecode\\notificator\\target\\frontend",
+  "frontendFolder": "D:\\Development\\springboot\\uncledavecode\\notificator\\frontend",
+  "pnpm.enable": false,
+  "require.home.node": false
+}
