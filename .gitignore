@@ -1,7 +1,7 @@
 node_modules
 HELP.md
-# target/*
-# !target/notificator*
+target/*
+!target/notificator*
 !**/src/main/**/target/
 !**/src/test/**/target/
 
